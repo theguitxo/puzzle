@@ -1,0 +1,63 @@
+#moves {
+
+    clear: both;
+    width: 4rem;
+    text-align: right;
+
+}
+
+.scores-table {
+
+    thead {
+        th {
+            
+            text-align: center;
+            
+            fa-icon {
+                padding: 0 .5rem;
+                cursor: pointer;
+            }
+
+        }
+    }
+
+    tbody {
+
+        td {
+
+            width: 23%;
+            padding: .5rem 1%;
+
+            .scores-thumbnail {
+                width: 90%;
+                height: auto;
+                margin: 0 5%;
+                padding: 0;
+            }
+
+            &:last-child {
+                text-align: right;
+            }
+
+        }
+
+    }
+
+}
+
+.language-icons {
+
+    border-width: .15rem;
+    border-color: white;
+    border-style: solid;
+    cursor: pointer;
+
+    &:hover {
+        border-color: #F44336;
+    }
+
+}
+
+.language-icons-selected {
+    background-color: #81C784;
+}

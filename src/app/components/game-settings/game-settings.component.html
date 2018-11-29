@@ -1,0 +1,224 @@
+<div class="row mt-2 mb-1">
+
+  <div class="col-6 col-md-4 p-1">
+
+    <button 
+      [disabled]="gameStarted"
+      class="btn btn-outline-warning mx-auto" 
+      (click)="buttonAction('start')">
+      <img src="./assets/icons/play-button-1.svg">{{ 'btn.start' | translate }}
+    </button>
+
+  </div>
+
+  <div class="col-6 col-md-4 p-1">
+
+    <button 
+      [disabled]="disableReset"
+      class="btn btn-outline-secondary mx-auto" 
+      (click)="buttonAction('reset')">
+      <img src="./assets/icons/restart.svg">{{ 'btn.reset' | translate }}
+    </button>
+
+  </div>
+
+  <div class="col-6 col-md-4 p-1">
+
+    <button 
+      [disabled]="gameStarted"
+      class="btn btn-outline-secondary mx-auto"
+      data-toggle="collapse"
+      href="#gameSettings"
+      role="button"
+      aria-expanded="false"
+      aria-controls="gameSettings">
+      <img src="./assets/icons/settings-6.svg">{{ 'btn.settings' | translate }}
+    </button>
+
+  </div>
+
+  <div class="col-6 col-md-4 p-1">
+
+    <button 
+      class="btn btn-outline-info mx-auto" 
+      data-toggle="collapse" 
+      href="#gameHelp" 
+      role="button" 
+      aria-expanded="false"
+      aria-controls="gameHelp">
+      <img src="./assets/icons/info.svg">{{ 'btn.help' | translate }}
+    </button>
+
+  </div>
+
+  <div 
+    *ngIf="scores.length"
+    class="col-6 col-md-4 p-1">
+  
+    <button 
+      class="btn btn-outline-success mx-auto" 
+      data-toggle="collapse" 
+      href="#scoresBoard" 
+      role="button" 
+      aria-expanded="false"
+      aria-controls="scoresBoard">
+      <img src="./assets/icons/star-1.svg">{{ 'btn.scores' | translate }}
+    </button>
+  
+  </div>
+
+</div>
+
+<div class="row mt-1 mb-2">
+
+  <div class="col-12 collapse" id="gameSettings">
+
+    <h5>{{ 'btn.settings' | translate | uppercase }}</h5>
+    
+    <div class="d-flex flex-row justify-content-start align-items-center">
+
+      <div class="ml-1">
+        <label for="moves" class="mx-2">{{ 'text.moves.mix' | translate }}: </label>
+        <input 
+          type="number" 
+          id="moves"         
+          min="1"   
+          (change)="updateMoves()"     
+          [(ngModel)]="movesToMix">
+      </div>
+
+      <div class="ml-3 d-flex flex-row justify-content-start align-items-center">
+
+        <div class="mx-2">{{ 'text.language' | translate }}:</div>
+        <div 
+          class="mx-2 p-1 language-icons"
+          [ngClass]="{'language-icons-selected' : language === 'es'}"
+          (click)="changeLanguage('es')">
+          <img src="./assets/flags/flag_spain.png">
+        </div>
+        <div
+          class="mx-2 p-1 language-icons"
+          [ngClass]="{'language-icons-selected' : language === 'en'}"
+          (click)="changeLanguage('en')">
+          <img src="./assets/flags/flag_great_britain.png">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row mt-1 mb-2">
+
+  <div class="col-12 collapse" id="gameHelp">
+    
+    <h5>{{ 'title.help' | translate | uppercase }}</h5>
+    {{ 'text.help' | translate }}
+
+  </div>
+
+</div>
+
+<div class="row mt-1 mb-2">
+
+  <div class="col-12 collapse" id="scoresBoard">
+
+    <h5>{{ 'btn.scores' | translate | uppercase }}</h5>
+
+    <table class="scores-table">
+      <thead>
+        <tr>
+          <th>{{ 'title.image' | translate }}</th>
+          <th>{{ 'title.date' | translate }}</th>
+          <th>
+            <fa-icon 
+              class="d-none d-md-inline"
+              (click)="orderData('moves', 'ASC')" [icon]="icons.sortUp"></fa-icon>
+            {{ 'title.moves' | translate }}
+            <fa-icon 
+              class="d-none d-md-inline"
+              (click)="orderData('moves', 'DESC')" [icon]="icons.sortDown"></fa-icon>
+            <div class="d-block d-md-none">
+              <fa-icon (click)="orderData('moves', 'ASC')" [icon]="icons.sortUp"></fa-icon>              
+              <fa-icon (click)="orderData('moves', 'DESC')" [icon]="icons.sortDown"></fa-icon>
+            </div>
+          </th>
+          <th>
+            <fa-icon 
+              class="d-none d-md-inline"
+              (click)="orderData('time', 'ASC')" [icon]="icons.sortUp"></fa-icon>
+            {{ 'title.time' | translate }}
+            <fa-icon 
+              class="d-none d-md-inline"
+              (click)="orderData('time', 'DESC')" [icon]="icons.sortDown"></fa-icon>
+            <div class="d-block d-md-none">
+              <fa-icon (click)="orderData('time', 'ASC')" [icon]="icons.sortUp"></fa-icon>
+              <fa-icon (click)="orderData('time', 'DESC')" [icon]="icons.sortDown"></fa-icon>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of getScoresList()">
+          <td>
+            <img 
+              class="scores-thumbnail"
+              [src]="getBoard(item.album, item.board)">
+          </td>
+          <td>
+            {{ item.date | date:'dd-MM-yyy' }}<br>
+            {{ item.date | date:'HH:mm:ss' }}
+          </td>
+          <td>
+            {{ 'text.played' | translate }}: {{ item.moves }}<br>
+            {{ 'text.mixed' | translate }}: {{ item.movesMix }}
+          </td>
+          <td>
+            {{ getTime(item.time) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div 
+      *ngIf="numPages > 1"
+      class="text-center d-flex py-3">
+      <nav aria-label="" class="mx-auto">
+        <ul class="pagination">
+          <li 
+            class="page-item"
+            [ngClass]="{'disabled': page <= 1}"
+            (click)="goToPage(page - 1)">
+            <a 
+              class="page-link"               
+              href="#">
+              {{ 'btn.previous' | translate }}
+            </a>
+          </li>
+          <li 
+            *ngFor="let p of getPagesToShow()"
+            class="page-item"
+            [ngClass]="{'active':p === page}"
+            (click)="goToPage(p)">
+            <a class="page-link" href="#">{{p}}</a>
+          </li>
+          <li 
+            class="page-item"
+            [ngClass]="{'disabled': page >= numPages}"
+            (click)="goToPage(page + 1)">
+            <a 
+              class="page-link" 
+              href="#">
+              {{ 'btn.next' | translate }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,158 @@
+.boards-list {
+
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+::ng-deep {
+
+    ngu-tile {
+
+        .tile {
+
+            box-shadow: none !important;
+            padding: 0;
+
+        }
+
+    }
+
+    .delete-board {
+
+        font-size: 1.5rem;
+        margin: 0;
+        padding: 0;
+        padding-left: 87%;
+        position: sticky; 
+        top: 2rem;   
+        cursor: pointer;
+        
+        fa-icon {
+
+            color:black;
+            background-color: white;
+            border-radius: 50%;
+            
+            svg {
+                padding-top: .3em;
+            }
+
+        }
+
+        // Small devices (landscape phones, 576px and up)
+        @media (min-width: 576px) {
+            padding-left: 87%;
+        }
+
+        // Medium devices (tablets, 768px and up)
+        @media (min-width: 768px) {
+            font-size: 1.75rem;
+            padding-left: 89%;
+        }
+
+        // Large devices (desktops, 992px and up)
+        @media (min-width: 992px) {
+            font-size: 2rem;
+            padding-left: 92%;
+        }
+
+        // Extra large devices (large desktops, 1200px and up)
+        @media (min-width: 1200px) {
+            font-size: 2.5rem;
+            padding-left: 92%;  
+            top: 2.5rem;            
+        }
+
+    }
+
+}
+
+.previous-button, .next-button {
+    
+    display: inline-block;        
+    margin: auto;        
+}
+
+.next-button {
+    position: absolute;
+    right: 0;
+}
+
+.hiden-button {
+    display: none;
+}
+
+.tileimg {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.image-loader-loading {
+    z-index: 1499;
+
+    .message {
+        color: #fff;
+        font-size: 2rem;
+    }
+
+}
+
+.image-loader-container {
+    
+    border-radius: .75rem;
+    width: 95vw;
+    height: 95vh;
+    margin: 0; 
+    padding: .5rem;
+    background-color: #fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+
+    label {        
+        input[type=file]{
+            display: none;
+        }
+    }
+
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    margin: 6px;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

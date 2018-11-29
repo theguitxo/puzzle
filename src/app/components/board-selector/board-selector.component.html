@@ -1,0 +1,160 @@
+<div class="row">
+
+    <div class="col-12 d-inline-flex flex-row justify-content-start flex-wrap">
+
+        <button
+            class="btn btn-outline-primary m-1"            
+            data-toggle="collapse" 
+            href="#availableBoards" 
+            role="button" 
+            aria-expanded="false" 
+            aria-controls="availableBoards"
+            [disabled]="optionsDisabled"
+            (click)="showHideBoards()">
+            <img src="./assets/icons/picture.svg">{{showHideButtonText}}
+        </button>
+        <button 
+            class="btn btn-outline-primary m-1" 
+            (click)="openImageLoader()" 
+            [disabled]="optionsDisabled">
+            <img src="./assets/icons/upload.svg">{{ 'btn.load.image' | translate }}
+        </button>
+        
+        <div class="drwopdown">
+
+            <button 
+                class="btn btn-outline-primary m-1 dropdown-toggle" 
+                type="button" 
+                id="imageAlbumsMenu" 
+                data-toggle="dropdown"
+                aria-haspopup="true" 
+                aria-expanded="false"
+                [disabled]="optionsDisabled">
+                <img src="./assets/icons/photos.svg">{{ 'btn.change.image.collection' | translate }}
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="imageAlbumsMenu">
+                <ng-container
+                    *ngFor="let album of albumList; let idx = index">
+                    <a 
+                        *ngIf="includeAlbum(album.value)"
+                        class="dropdown-item" 
+                        (click)="selectAlbum(album.value)"
+                        href="#">
+                        {{ album.title | translate }}
+                    </a>
+                </ng-container>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    *ngIf="boards.length"
+    class="row my-1">
+
+    <div class="col-12 collapse" id="availableBoards">
+
+        <ngu-carousel 
+            #carousel 
+            [inputs]="carouselTile" 
+            [dataSource]="boards">
+        
+            <ngu-tile *nguCarouselDef="let item; let i = index">
+
+                <div 
+                    *ngIf="albumSelected == 'pa'" 
+                    (click)="deleteBoard(i)"
+                    class="delete-board">
+                    <fa-icon 
+                        title="{{ 'board.delete.title' | translate }}"
+                        [icon]="icons.close">
+                    </fa-icon>
+                </div>
+
+                <img 
+                    (click)="selectBoard(i)"
+                    class="tileimg" 
+                    [src]="item">
+
+            </ngu-tile>
+                    
+            <button 
+                [ngClass]="{'hiden-button': !showCarouselButtons()}"
+                NguCarouselPrev 
+                class="previous-button btn btn-outline-warning">
+                <img src="./assets/icons/previous.svg">
+                Previous
+            </button>
+            <button 
+                [ngClass]="{'hiden-button': !showCarouselButtons()}"
+                NguCarouselNext                
+                class="next-button btn btn-outline-warning">
+                Next
+                <img src="./assets/icons/skip.svg">
+            </button>        
+            
+        </ngu-carousel>
+
+    </div>
+
+</div>
+
+<div 
+    *ngIf="showImageLoader"
+    class="shadow">
+    <div class="image-loader-container">
+
+        <div class="row px-2">
+            <div class="col-12 col-md-4 p-1 text-center">
+                <label for="imageToBoard" class="btn btn-outline-success">
+                    <img src="./assets/icons/folder-14.svg">{{ 'btn.select.file' | translate }}
+                    <input 
+                        id="imageToBoard" 
+                        type="file" 
+                        (click)="loadImageClick()"
+                        (change)="fileChangeEvent($event)" />
+                </label>
+            </div>
+            <div class="col-7 col-md-4 p-1">
+                <button 
+                    *ngIf="croppedImage"                    
+                    class="btn btn-outline-primary mx-auto w-100" 
+                    (click)="selectImage()">
+                    <img src="./assets/icons/like.svg">{{ 'btn.use.image' | translate }}
+                </button>
+            </div>
+            <div class="col-5 col-md-4 p-1">
+                <button                     
+                    class="btn btn-outline-danger mx-auto w-100" 
+                    (click)="closeImageLoader()">
+                    <img src="./assets/icons/close.svg">{{ 'btn.close' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-8">
+
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1/1"
+                    [resizeToWidth]="300"
+                    format="jpeg"
+                    (imageCroppedBase64)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (loadImageFailed)="loadImageFailed()">
+                </image-cropper>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="shadow image-loader-loading" *ngIf="loadingImage">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>

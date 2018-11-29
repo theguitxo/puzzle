@@ -1,0 +1,124 @@
+<div class="container">
+
+    <app-title></app-title>
+
+    <app-game-settings
+        [gameStarted]="gameStarted"
+        [disableReset]="intervalSecondsPlayer === null"
+        [movesToMix]="movesToMix"
+        [scores]="scoresBoard"
+        [language]="language"
+        (updateMovesToMix)="movesToMix = $event"
+        (startGame)="startGame()"
+        (resetGame)="resetGame()"
+        (changeLanguage)="changeLanguage($event)">
+    </app-game-settings>
+
+    <div class="row">
+
+        <div class="col-12">
+
+            <app-board-selector
+                [boards]="boards"
+                [optionsDisabled]="gameStarted"
+                [albumSelected]="boardsAlbum"
+                (changeBoard)="changeBoard($event)"
+                (addBoard)="addBoard($event)"
+                (imageNotValid)="imageNotValid($event)"
+                (changeAlbum)="changeImageAlbum($event)"
+                (deleteBoard)="deleteBoard($event)">
+            </app-board-selector>    
+
+        </div>
+
+    </div>
+
+    <div class="row py-2">
+
+        <div class="col-6 col-md-3 text-center">
+
+            <app-moves-counter 
+                [moves]="playedMoves">
+            </app-moves-counter>
+
+        </div>
+
+        <div class="col-6 col-md-3 text-center">
+            
+            <app-time-counter
+                [seconds]="secondsPlayed">
+            </app-time-counter>
+
+        </div>
+
+        <div class="col-md-6 d-none d-md-block align-self-center">
+            <span>
+                {{ 'example' | translate }}:
+            </span>
+        </div>
+
+    </div>
+
+    <div 
+        class="row" 
+        *ngIf="piecesBoard.length">
+  
+      <div class="col-12 col-md-6">
+  
+          <div 
+              #jsGameBoard 
+              class="game-board">
+  
+              <ng-container
+                  *ngFor="let row of piecesBoard; let idxrow = index">
+  
+                  <div                 
+                      *ngFor="let column of row; let idxcolumn = index"
+                      class="game-piece"
+                      [ngStyle]="column.style" 
+                      (click)="movePiece(idxrow, idxcolumn)">                
+                  </div>
+  
+              </ng-container>
+  
+          </div>
+  
+      </div>
+      
+      <div class="col-12 d-sm-block d-md-none my-2">
+        <span>{{ 'example' | translate }}:</span>
+      </div>
+
+      <div class="col-12 col-md-6 mt-0 mt-md-0">
+          <img 
+            #exampleImage
+            class="img-fluid" 
+            src="{{boards[boardSelected]}}">
+      </div>
+  
+  </div>
+
+  <div class="row py-4">
+    <div class="col-12">
+        <div>
+            {{ 'footer.smashicons.1' | translate }} <a href="https://smashicons.com" target="_blank">Smashicons</a> {{ 'footer.smashicons.2' | translate }} <a href="http://www.flaticon.com" target="_blank">www.flaticon.com</a>
+        </div>
+        <div>
+            {{ 'footer.fatcow' | translate }} <a href="http://www.fatcow.com/free-icons" target="_blank">Fat Cow</a>.
+        </div>
+        <div>
+            {{ 'footer.github1' | translate }} <a href="https://github.com/theguitxo/puzzle" target="_blank">{{ 'footer.github2' | translate }}</a>
+        </div>
+    </div>
+  </div>
+  
+</div>
+
+<app-pop-up   
+    *ngIf="showPopUp"
+    [type]="typePopUp"
+    [title]="titlePopUp"
+    [message]="messagePopUp"
+    (close)="closePopUp()"
+    (confirm)="confirmAction()">
+</app-pop-up>

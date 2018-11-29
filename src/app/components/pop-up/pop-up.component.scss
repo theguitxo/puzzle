@@ -1,0 +1,101 @@
+.shadow {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content-pop-up {
+
+    margin: 0 .5rem;
+    padding: .5rem;
+
+    background-color: #fff;
+
+    border: solid 1px #000;
+    border-radius: 1rem;
+
+    animation-name: downPopUp;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+
+    .header-pop-up {
+
+        margin: 0 .15rem .25rem .15rem;
+        padding: .5rem;
+
+        border-bottom-style: inset;
+        border-bottom-width: 1px;
+        border-bottom-color: #ddd;
+
+    }
+
+    .body-pop-up {
+
+        margin: 1rem 1.5rem;
+        padding: 0;
+
+    }
+
+    .footer-pop-up {
+
+        margin: .25rem .15rem 0 .15rem;
+        padding: 1rem .5rem .5rem .5rem;
+        text-align: right;
+
+        border-top-style: outset;
+        border-top-width: 1px;
+        border-top-color: #ddd;
+
+        button {
+            margin: 0 .25rem;            
+        }
+
+    }
+
+}
+
+.fade-out, .fade-out-background {    
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.fade-out {
+    animation-name: fadeOut;
+    animation-duration: 1s;
+}
+
+.fade-out-background {
+    animation-name: fadeOutBackground;
+    animation-duration: .5s;
+}
+
+@keyframes fadeOutBackground {
+    0% {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes downPopUp {
+    0% {
+        transform: translateY(-15vh);
+        opacity: 0;
+    }
+    33% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0vh);
+        opacity: 1;
+    }
+}
+

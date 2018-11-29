@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Josefin Sans';
+    src: url('./assets/fonts/josefinsans/JosefinSans-Regular.ttf') format('truetype');
+    font-weight: 100;
+}
+
+.container {
+    font-family: 'Josefin Sans';    
+}
+
+.shadow {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 999;    
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+}

@@ -1,0 +1,38 @@
+<div #shadowPopUp class="shadow">
+
+    <div #contentPopUp class="content-pop-up">
+
+        <div class="header-pop-up">
+            <h5>
+                {{title}}
+            </h5>
+        </div>
+
+        <div class="body-pop-up">
+            {{message}}            
+        </div>
+        
+        <div class="footer-pop-up">
+            <button 
+                *ngIf="type == 'confirm'" 
+                class="btn btn-primary" 
+                (click)="closePopUp()">
+                {{ 'btn.accept' | translate }}
+            </button>
+            <button 
+                *ngIf="type == 'confirm'" 
+                class="btn btn-secondary" 
+                (click)="closePopUp(true)">
+                {{ 'btn.cancel' | translate }}
+            </button>
+            <button 
+                *ngIf="type == 'alert'"
+                class="btn btn-primary"
+                (click)="closePopUp()">
+                {{ 'btn.close' | translate }}
+            </button>            
+        </div>
+
+    </div>
+
+</div>
