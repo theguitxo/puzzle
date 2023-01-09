@@ -14,4 +14,4 @@ Navigate to `http://localhost:4200/` and enjoy.
 
 You can see a demo of this project in the next url:
 
-[Demo](http://puzzle.guitxo.com)
+[https://theguitxo.github.io/puzzle/](https://theguitxo.github.io/puzzle/)
